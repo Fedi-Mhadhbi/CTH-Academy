@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>My Profile - CTH Academy</title>
+<link rel="stylesheet" href="css/style_professional.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+.profile-container {
+    max-width: 1200px;
+    margin: 2rem auto;
+    padding: 0 2rem;
+}
+
+.profile-header {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border-radius: 16px;
+    padding: 3rem 2rem;
+    color: white;
+    margin-bottom: 2rem;
+    position: relative;
+    overflow: hidden;
+}
+
+.profile-header::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -10%;
+    width: 300px;
+    height: 300px;
+    background: rgba(255,255,255,0.1);
+    border-radius: 50%;
+}
+
+.profile-content {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    position: relative;
+    z-index: 1;
+}
+
+.profile-picture-container {
+    position: relative;
+}
+
+.profile-picture {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    border: 5px solid white;
+    object-fit: cover;
+    background: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 4rem;
+    color: #667eea;
+    font-weight: bold;
+}
+
+.upload-btn {
+    position: absolute;
+    bottom: 5px;
+    right: 5px;
+    background: white;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    transition: all 0.3s;
+}
+
+.upload-btn:hover {
+    transform: scale(1.1);
+}
+
+.upload-btn i {
+    color: #667eea;
+}
+
+#profilePictureInput {
+    display: none;
+}
+
+.profile-info h1 {
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.profile-role {
+    background: rgba(255,255,255,0.2);
+    padding: 0.4rem 1rem;
+    border-radius: 20px;
+    display: inline-block;
+    margin-bottom: 1rem;
+}
+
+.profile-bio {
+    opacity: 0.9;
+    line-height: 1.6;
+}
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.stat-card {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    text-align: center;
+    transition: all 0.3s;
+}
+
+.stat-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 16px rgba(0,0,0,0.15);
+}
+
+.stat-number {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: #667eea;
+    display: block;
+}
+
+.stat-label {
+    color: #7f8c8d;
+    margin-top: 0.5rem;
+}
+
+.section {
+    background: white;
+    border-radius: 16px;
+    padding: 2rem;
+    margin-bottom: 2rem;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+}
+
+.section-header h2 {
+    font-size: 1.5rem;
+    color: #2c3e50;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.btn-edit {
+    background: #667eea;
+    color: white;
+    border: none;
+    padding: 0.6rem 1.5rem;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.btn-edit:hover {
+    background: #5568d3;
+    transform: translateY(-2px);
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+    color: #2c3e50;
+}
+
+.form-group input,
+.form-group textarea {
+    width: 100%;
+    padding: 0.8rem;
+    border: 2px solid #e0e6ed;
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: all 0.3s;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: #667eea;
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+.form-group textarea {
+    min-height: 100px;
+    resize: vertical;
+    font-family: inherit;
+}
+
+.achievements-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 1rem;
+}
+
+.achievement-card {
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    padding: 1.5rem;
+    border-radius: 12px;
+    text-align: center;
+    border: 2px solid transparent;
+    transition: all 0.3s;
+}
+
+.achievement-card.earned {
+    background: linear-gradient(135deg, #fff3cd 0%, #ffeaa7 100%);
+    border-color: #ffc107;
+}
+
+.achievement-icon {
+    font-size: 3rem;
+    margin-bottom: 0.5rem;
+}
+
+.achievement-name {
+    font-weight: bold;
+    margin-bottom: 0.3rem;
+    color: #2c3e50;
+}
+
+.achievement-desc {
+    font-size: 0.9rem;
+    color: #7f8c8d;
+}
+
+.certificates-list {
+    display: grid;
+    gap: 1rem;
+}
+
+.certificate-item {
+    background: #f8f9fa;
+    padding: 1.5rem;
+    border-radius: 12px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: all 0.3s;
+}
+
+.certificate-item:hover {
+    background: #e9ecef;
+    transform: translateX(5px);
+}
+
+.certificate-info h4 {
+    color: #2c3e50;
+    margin-bottom: 0.3rem;
+}
+
+.certificate-info p {
+    color: #7f8c8d;
+    font-size: 0.9rem;
+}
+
+.certificate-score {
+    background: #4CAF50;
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-weight: bold;
+}
+
+.btn-view-cert {
+    background: #667eea;
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    text-decoration: none;
+    margin-left: 1rem;
+}
+
+.edit-mode {
+    display: none;
+}
+
+.edit-mode.active {
+    display: block;
+}
+
+.view-mode.hidden {
+    display: none;
+}
+
+@media (max-width: 768px) {
+    .profile-content {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .stats-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .profile-header {
+        padding: 2rem 1rem;
+    }
+}
+</style>
+</head>
+<body>
+
+<!-- Navbar -->
+<nav>
+  <div class="logo">CTH Academy</div>
+  <ul>
+    <li><a href="etudiant.html">Dashboard</a></li>
+    <li><a href="profile.html">Profile</a></li>
+    <li><a href="leaderboard.html">🏆 Leaderboard</a></li>
+    <li><a href="contact.html">Contact</a></li>
+    <li><a href="backend/auth/logout.php">Logout</a></li>
+  </ul>
+</nav>
+
+<div class="profile-container">
+    <!-- Profile Header -->
+    <div class="profile-header">
+        <div class="profile-content">
+            <div class="profile-picture-container">
+                <div class="profile-picture" id="profilePicture">
+                    👤
+                </div>
+                <label for="profilePictureInput" class="upload-btn">
+                    <i class="fas fa-camera"></i>
+                </label>
+                <input type="file" id="profilePictureInput" accept="image/*">
+            </div>
+            <div class="profile-info">
+                <h1 id="profileName">Loading...</h1>
+                <div class="profile-role" id="profileRole">Student</div>
+                <p class="profile-bio" id="profileBio">No bio yet</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Statistics -->
+    <div class="stats-grid" id="statsGrid">
+        <div class="stat-card">
+            <span class="stat-number" id="stat1">0</span>
+            <div class="stat-label">Quizzes Taken</div>
+        </div>
+    </div>
+
+    <!-- Edit Profile Section -->
+    <div class="section">
+        <div class="section-header">
+            <h2><i class="fas fa-user-edit"></i> Profile Information</h2>
+            <button class="btn-edit" onclick="toggleEditMode()">Edit Profile</button>
+        </div>
+
+        <div class="view-mode" id="viewMode">
+            <p><strong>Email:</strong> <span id="viewEmail">-</span></p>
+            <p><strong>Phone:</strong> <span id="viewPhone">-</span></p>
+            <p><strong>Location:</strong> <span id="viewLocation">-</span></p>
+            <p><strong>Bio:</strong> <span id="viewBioText">-</span></p>
+        </div>
+
+        <div class="edit-mode" id="editMode">
+            <div class="form-group">
+                <label>Bio</label>
+                <textarea id="editBio" placeholder="Tell us about yourself..."></textarea>
+            </div>
+            <div class="form-group">
+                <label>Phone</label>
+                <input type="tel" id="editPhone" placeholder="+216 12 345 678">
+            </div>
+            <div class="form-group">
+                <label>Location</label>
+                <input type="text" id="editLocation" placeholder="Tunis, Tunisia">
+            </div>
+            <button class="btn-edit" onclick="saveProfile()">Save Changes</button>
+            <button class="btn-edit" style="background: #95a5a6; margin-left: 10px;" onclick="toggleEditMode()">Cancel</button>
+        </div>
+    </div>
+
+    <!-- Certificates -->
+    <div class="section" id="certificatesSection">
+        <div class="section-header">
+            <h2><i class="fas fa-certificate"></i> My Certificates</h2>
+        </div>
+        <div class="certificates-list" id="certificatesList">
+            <p style="text-align: center; color: #7f8c8d;">No certificates yet. Complete quizzes with 75%+ to earn certificates!</p>
+        </div>
+    </div>
+
+    <!-- Achievements -->
+    <div class="section">
+        <div class="section-header">
+            <h2><i class="fas fa-trophy"></i> Achievements</h2>
+        </div>
+        <div class="achievements-grid" id="achievementsGrid">
+            <div class="achievement-card">
+                <div class="achievement-icon">🎯</div>
+                <div class="achievement-name">First Quiz</div>
+                <div class="achievement-desc">Complete your first quiz</div>
+            </div>
+            <div class="achievement-card">
+                <div class="achievement-icon">⭐</div>
+                <div class="achievement-name">5 Quizzes</div>
+                <div class="achievement-desc">Complete 5 quizzes</div>
+            </div>
+            <div class="achievement-card">
+                <div class="achievement-icon">🏆</div>
+                <div class="achievement-name">Perfect Score</div>
+                <div class="achievement-desc">Score 100% on a quiz</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Footer -->
+<footer>
+  © Creative Tech Helper — 2025<br>
+  CTH Academy – Online Learning Platform
+</footer>
+
+<script>
+let profileData = {};
+
+// Load profile on page load
+loadProfile();
+
+function loadProfile() {
+    fetch('backend/profile/get_profile.php', { credentials: 'same-origin' })
+        .then(res => res.json())
+        .then(data => {
+            if (data.status === 'success') {
+                profileData = data.profile;
+                displayProfile(data);
+            } else {
+                alert('Error: ' + data.message);
+            }
+        })
+        .catch(err => {
+            console.error(err);
+            alert('Failed to load profile');
+        });
+}
+
+function displayProfile(data) {
+    const { profile, stats, achievements } = data;
+
+    // Update header
+    document.getElementById('profileName').textContent = `${profile.prenom} ${profile.nom}`;
+    document.getElementById('profileRole').textContent = profile.role === 'etudiant' ? 'Student' : 'Teacher';
+    document.getElementById('profileBio').textContent = profile.bio || 'No bio yet';
+
+    // Profile picture
+    const picElement = document.getElementById('profilePicture');
+    if (profile.profile_picture) {
+        picElement.innerHTML = `<img src="${profile.profile_picture}" alt="Profile" style="width:100%;height:100%;border-radius:50%;object-fit:cover;">`;
+    } else {
+        const initials = (profile.prenom.charAt(0) + profile.nom.charAt(0)).toUpperCase();
+        picElement.textContent = initials;
+    }
+
+    // Update view mode
+    document.getElementById('viewEmail').textContent = profile.email;
+    document.getElementById('viewPhone').textContent = profile.phone || '-';
+    document.getElementById('viewLocation').textContent = profile.location || '-';
+    document.getElementById('viewBioText').textContent = profile.bio || '-';
+
+    // Update edit mode
+    document.getElementById('editBio').value = profile.bio || '';
+    document.getElementById('editPhone').value = profile.phone || '';
+    document.getElementById('editLocation').value = profile.location || '';
+
+    // Display stats
+    displayStats(stats, profile.role);
+
+    // Display certificates
+    if (stats.certificate_list && stats.certificate_list.length > 0) {
+        displayCertificates(stats.certificate_list);
+    }
+
+    // Check achievements
+    checkAchievements(stats);
+}
+
+function displayStats(stats, role) {
+    const grid = document.getElementById('statsGrid');
+    grid.innerHTML = '';
+
+    if (role === 'etudiant') {
+        grid.innerHTML = `
+            <div class="stat-card">
+                <span class="stat-number">${stats.quizzes_taken || 0}</span>
+                <div class="stat-label">Quizzes Taken</div>
+            </div>
+            <div class="stat-card">
+                <span class="stat-number">${stats.average_score || 0}%</span>
+                <div class="stat-label">Average Score</div>
+            </div>
+            <div class="stat-card">
+                <span class="stat-number">${stats.certificates || 0}</span>
+                <div class="stat-label">Certificates Earned</div>
+            </div>
+            <div class="stat-card">
+                <span class="stat-number">${stats.questions_asked || 0}</span>
+                <div class="stat-label">Questions Asked</div>
+            </div>
+        `;
+    } else {
+        grid.innerHTML = `
+            <div class="stat-card">
+                <span class="stat-number">${stats.courses_created || 0}</span>
+                <div class="stat-label">Courses Created</div>
+            </div>
+            <div class="stat-card">
+                <span class="stat-number">${stats.quizzes_created || 0}</span>
+                <div class="stat-label">Quizzes Created</div>
+            </div>
+            <div class="stat-card">
+                <span class="stat-number">${stats.questions_answered || 0}</span>
+                <div class="stat-label">Questions Received</div>
+            </div>
+        `;
+    }
+}
+
+function displayCertificates(certificates) {
+    const list = document.getElementById('certificatesList');
+    list.innerHTML = '';
+
+    certificates.forEach(cert => {
+        list.innerHTML += `
+            <div class="certificate-item">
+                <div class="certificate-info">
+                    <h4>${cert.quiz_title}</h4>
+                    <p>${cert.course_title} • ${new Date(cert.taken_at).toLocaleDateString()}</p>
+                </div>
+                <div style="display: flex; align-items: center;">
+                    <span class="certificate-score">${Math.round(cert.percentage)}%</span>
+                    <a href="backend/certificates/view_certificate.php?quiz_id=${cert.quiz_id}" target="_blank" class="btn-view-cert">View Certificate</a>
+                </div>
+            </div>
+        `;
+    });
+}
+
+function checkAchievements(stats) {
+    const grid = document.getElementById('achievementsGrid');
+    grid.innerHTML = '';
+
+    const achievements = [
+        { name: 'First Quiz', desc: 'Complete your first quiz', icon: '🎯', earned: stats.quizzes_taken >= 1 },
+        { name: '5 Quizzes', desc: 'Complete 5 quizzes', icon: '⭐', earned: stats.quizzes_taken >= 5 },
+        { name: '10 Quizzes', desc: 'Complete 10 quizzes', icon: '🌟', earned: stats.quizzes_taken >= 10 },
+        { name: 'First Certificate', desc: 'Earn your first certificate', icon: '📜', earned: stats.certificates >= 1 },
+        { name: 'Certificate Master', desc: 'Earn 5 certificates', icon: '🏆', earned: stats.certificates >= 5 },
+        { name: 'Excellent Student', desc: 'Maintain 90%+ average', icon: '🎓', earned: stats.average_score >= 90 },
+    ];
+
+    achievements.forEach(ach => {
+        grid.innerHTML += `
+            <div class="achievement-card ${ach.earned ? 'earned' : ''}">
+                <div class="achievement-icon">${ach.icon}</div>
+                <div class="achievement-name">${ach.name}</div>
+                <div class="achievement-desc">${ach.desc}</div>
+            </div>
+        `;
+    });
+}
+
+function toggleEditMode() {
+    document.getElementById('viewMode').classList.toggle('hidden');
+    document.getElementById('editMode').classList.toggle('active');
+}
+
+function saveProfile() {
+    const bio = document.getElementById('editBio').value;
+    const phone = document.getElementById('editPhone').value;
+    const location = document.getElementById('editLocation').value;
+
+    fetch('backend/profile/update_profile.php', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ bio, phone, location })
+    })
+    .then(res => res.json())
+    .then(data => {
+        if (data.status === 'success') {
+            alert('✅ Profile updated successfully!');
+            loadProfile();
+            toggleEditMode();
+        } else {
+            alert('❌ ' + data.message);
+        }
+    })
+    .catch(err => {
+        console.error(err);
+        alert('Failed to update profile');
+    });
+}
+
+// Profile picture upload
+document.getElementById('profilePictureInput').addEventListener('change', function(e) {
+    const file = e.target.files[0];
+    if (!file) return;
+
+    // Check file size (2MB limit to avoid 413 error)
+    const maxSize = 2 * 1024 * 1024; // 2MB
+    if (file.size > maxSize) {
+        alert('❌ File too large! Maximum size is 2MB.\nYour file: ' + (file.size / 1024 / 1024).toFixed(2) + 'MB\n\nPlease compress your image or choose a smaller one.');
+        this.value = ''; // Clear the input
+        return;
+    }
+
+    // Check file type
+    const allowedTypes = ['image/jpeg', 'image/png', 'image/gif', 'image/webp'];
+    if (!allowedTypes.includes(file.type)) {
+        alert('❌ Invalid file type! Only JPG, PNG, GIF, and WEBP images are allowed.');
+        this.value = '';
+        return;
+    }
+
+    // Show uploading message
+    const uploadBtn = document.querySelector('.upload-btn');
+    uploadBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
+
+    const formData = new FormData();
+    formData.append('profile_picture', file);
+
+    fetch('backend/profile/upload_profile_picture.php', {
+        method: 'POST',
+        body: formData
+    })
+    .then(res => res.json())
+    .then(data => {
+        if (data.status === 'success') {
+            alert('✅ Profile picture updated!');
+            loadProfile();
+        } else {
+            alert('❌ ' + data.message);
+        }
+    })
+    .catch(err => {
+        console.error(err);
+        alert('❌ Failed to upload picture. Please try again.');
+    })
+    .finally(() => {
+        uploadBtn.innerHTML = '<i class="fas fa-camera"></i>';
+    });
+});
+</script>
+
+</body>
+</html>

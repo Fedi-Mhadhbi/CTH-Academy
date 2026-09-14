@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>CTH Academy | Sign Up</title>
+  <link rel="stylesheet" href="css/style_professional.css">
+<link rel="stylesheet" href="css/darkmode.css">
+</head>
+<body>
+
+<nav>
+  <div class="logo">CTH Academy</div>
+  <ul>
+    <li><a href="index.html">Home</a></li>
+    <li><a href="login.html">Login</a></li>
+  </ul>
+</nav>
+
+<section class="login">
+<h2>Create Account</h2>
+
+<form id="signupForm">
+  <input type="text" id="nom" name="nom" placeholder="Nom" required>
+  <input type="text" id="prenom" name="prenom" placeholder="Prénom" required>
+  <input type="email" id="email" name="email" placeholder="Email" required>
+  <input type="password" id="password" name="password" placeholder="Mot de passe" required>
+
+  <select id="role" name="role" required>
+    <option value="">Choose role</option>
+    <option value="etudiant">Étudiant</option>
+    <option value="enseignant">Enseignant</option>
+  </select>
+
+  <button type="submit">Sign Up</button>
+</form>
+
+<p>Already have an account? <a href="login.html">Login</a></p>
+</section>
+<script src="js/darkmode.js"></script>
+<script src="js/auth.js"></script>
+</body>
+</html>

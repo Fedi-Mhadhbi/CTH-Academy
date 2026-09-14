@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Leaderboard - CTH Academy</title>
+<link rel="stylesheet" href="css/darkmode.css">
+<link rel="stylesheet" href="css/style_professional.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+<!-- Navbar -->
+<nav>
+  <div class="logo">CTH Academy</div>
+  <ul>
+    <li><a href="enseignant.html">Dashboard</a></li>
+    <li><a href="leaderboard.html">🏆 Leaderboard</a></li>
+    <li><a href="contact.html">Contact</a></li>
+    <li><a href="backend/auth/logout.php">Logout</a></li>
+  </ul>
+</nav>
+
+<!-- Leaderboard Section -->
+<section class="leaderboard-section">
+    <div class="leaderboard-header">
+        <div class="trophy-icon">🏆</div>
+        <h1>Top Students Leaderboard</h1>
+        <p>Compete with other students and climb to the top!</p>
+    </div>
+
+    <table class="leaderboard-table" id="leaderboardTable">
+        <thead>
+            <tr>
+                <th>Rank</th>
+                <th>Student</th>
+                <th style="text-align: center;">Quizzes Taken</th>
+                <th style="text-align: center;">Total Score</th>
+                <th style="text-align: center;">Average</th>
+            </tr>
+        </thead>
+        <tbody id="leaderboardBody">
+            <tr>
+                <td colspan="5" class="no-data">
+                    <i class="fas fa-spinner fa-spin"></i> Loading leaderboard...
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+
+<!-- Footer -->
+<footer>
+  © Creative Tech Helper — 2025<br>
+  CTH Academy – Online Learning Platform
+</footer>
+
+<script>
+// Load leaderboard data
+function loadLeaderboard() {
+    fetch('backend/leaderboard/get_leaderboard.php', { credentials: 'same-origin' })
+        .then(res => res.json())
+        .then(data => {
+            const tbody = document.getElementById('leaderboardBody');
+            
+            if (data.status === 'error') {
+                tbody.innerHTML = `
+                    <tr>
+                        <td colspan="5" class="no-data">
+                            ❌ Error: ${data.message}
+                        </td>
+                    </tr>`;
+                return;
+            }
+            
+            if (data.leaderboard.length === 0) {
+                tbody.innerHTML = `
+                    <tr>
+                        <td colspan="5" class="no-data">
+                            <div class="trophy-icon">📊</div>
+                            <p>No quiz attempts yet. Be the first to take a quiz!</p>
+                        </td>
+                    </tr>`;
+                return;
+            }
+            
+            // Build leaderboard rows
+            let html = '';
+            data.leaderboard.forEach(student => {
+                const rankClass = `rank-${student.rank}`;
+                let rankDisplay = '';
+                
+                if (student.rank === 1) {
+                    rankDisplay = '<span class="rank-medal">🥇</span>';
+                } else if (student.rank === 2) {
+                    rankDisplay = '<span class="rank-medal">🥈</span>';
+                } else if (student.rank === 3) {
+                    rankDisplay = '<span class="rank-medal">🥉</span>';
+                } else {
+                    rankDisplay = `<span class="${rankClass}">${student.rank}</span>`;
+                }
+                
+                html += `
+                    <tr>
+                        <td class="rank-cell">${rankDisplay}</td>
+                        <td>
+                            <div class="student-name">${student.prenom} ${student.nom}</div>
+                            <div class="student-stats">${student.quizzes_taken} quiz${student.quizzes_taken > 1 ? 'zes' : ''} completed</div>
+                        </td>
+                        <td style="text-align: center;">
+                            <strong>${student.quizzes_taken}</strong>
+                        </td>
+                        <td style="text-align: center;">
+                            <span class="score-badge">${student.total_score} pts</span>
+                        </td>
+                        <td style="text-align: center;">
+                            <span class="percentage-badge">${student.avg_percentage}%</span>
+                        </td>
+                    </tr>`;
+            });
+            
+            tbody.innerHTML = html;
+        })
+        .catch(err => {
+            console.error(err);
+            document.getElementById('leaderboardBody').innerHTML = `
+                <tr>
+                    <td colspan="5" class="no-data">
+                        ❌ Failed to load leaderboard. Please try again.
+                    </td>
+                </tr>`;
+        });
+}
+
+// Load on page load
+loadLeaderboard();
+
+// Refresh every 30 seconds
+setInterval(loadLeaderboard, 30000);
+</script>
+<script src="js/darkmode.js"></script>
+</body>
+</html>

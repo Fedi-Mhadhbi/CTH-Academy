@@ -1,0 +1,639 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CTH Academy | Student Dashboard</title>
+<link rel="stylesheet" href="css/darkmode.css">
+<link rel="stylesheet" href="css/style_professional.css">
+<link rel="stylesheet" href="css/ai_chat_widget.css">
+<link rel="stylesheet" href="css/discussions.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<style>
+/* QUIZ SECTION - COMPLETE OVERRIDE */
+.quiz-section {
+    max-width: 900px !important;
+    margin: 40px auto !important;
+    background: #f9f9f9 !important;
+    padding: 30px 25px !important;
+    border-radius: 15px !important;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.1) !important;
+    color: #111 !important;
+    display: block !important;
+}
+
+.quiz-section h2 {
+    text-align: center !important;
+    color: #4b7bec !important;
+    margin-bottom: 10px !important;
+    font-size: 28px !important;
+}
+
+.quiz-section > p {
+    text-align: center !important;
+    margin-bottom: 25px !important;
+    color: #555 !important;
+}
+
+#quizContainer {
+    display: block !important;
+    width: 100% !important;
+    max-height: none !important;
+    min-height: auto !important;
+    height: auto !important;
+    overflow: visible !important;
+    overflow-y: visible !important;
+    overflow-x: visible !important;
+    padding: 0 !important;
+    margin: 0 !important;
+}
+
+#quizForm {
+    display: block !important;
+    width: 100% !important;
+}
+
+.question {
+    display: block !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    background: #fff !important;
+    padding: 20px !important;
+    margin: 0 0 20px 0 !important;
+    border-radius: 12px !important;
+    border-left: 5px solid #4b7bec !important;
+    border-right: none !important;
+    border-top: none !important;
+    border-bottom: none !important;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05) !important;
+    box-sizing: border-box !important;
+    float: none !important;
+    position: relative !important;
+    clear: both !important;
+}
+
+.question p {
+    display: block !important;
+    font-weight: bold !important;
+    margin-bottom: 15px !important;
+    color: #111 !important;
+    text-align: left !important;
+    width: 100% !important;
+}
+
+.question strong {
+    color: #4b7bec !important;
+}
+
+.question label {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: flex-start !important;
+    gap: 12px !important;
+    margin: 10px 0 !important;
+    padding: 12px 15px !important;
+    border-radius: 8px !important;
+    border: 2px solid #e0e0e0 !important;
+    cursor: pointer !important;
+    transition: all 0.2s !important;
+    background: #fafafa !important;
+    color: #111 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+}
+
+.question label:hover {
+    background: #e6f0ff !important;
+    border-color: #4b7bec !important;
+}
+
+.question input[type="radio"] {
+    margin-top: 3px !important;
+    margin-right: 0 !important;
+    margin-left: 0 !important;
+    width: 18px !important;
+    height: 18px !important;
+    min-width: 18px !important;
+    flex-shrink: 0 !important;
+    accent-color: #4b7bec !important;
+    cursor: pointer !important;
+}
+
+.question label span {
+    flex: 1 !important;
+    word-wrap: break-word !important;
+    word-break: break-word !important;
+    color: #111 !important;
+}
+
+button[type="submit"], 
+#quizContainer > button,
+#quizContainer button {
+    display: block !important;
+    width: auto !important;
+    max-width: 300px !important;
+    background: #4b7bec !important;
+    color: #fff !important;
+    font-weight: bold !important;
+    border: none !important;
+    padding: 14px 30px !important;
+    border-radius: 10px !important;
+    cursor: pointer !important;
+    transition: 0.3s !important;
+    margin: 30px auto !important;
+    font-size: 16px !important;
+    text-align: center !important;
+}
+
+button[type="submit"]:hover, 
+#quizContainer button:hover {
+    background: #3a5fcc !important;
+    transform: translateY(-2px) !important;
+    box-shadow: 0 4px 12px rgba(75, 123, 236, 0.3) !important;
+}
+
+#quizContainer h3 {
+    display: block !important;
+    text-align: center !important;
+    color: #4b7bec !important;
+    font-size: 24px !important;
+    margin: 20px 0 !important;
+    width: 100% !important;
+}
+
+#quizContainer > .card {
+    display: block !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    background: #fff !important;
+    border: 1px solid #e0e0e0 !important;
+    border-radius: 12px !important;
+    padding: 20px !important;
+    margin-bottom: 15px !important;
+    transition: 0.3s !important;
+    box-sizing: border-box !important;
+}
+
+#quizContainer > .card:hover {
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1) !important;
+    transform: translateY(-2px) !important;
+}
+
+#quizContainer > .card h3 {
+    color: #333 !important;
+    margin-bottom: 8px !important;
+}
+
+#quizContainer > .card p {
+    color: #666 !important;
+    margin-bottom: 15px !important;
+    text-align: left !important;
+}
+
+#quizContainer > p {
+    display: block !important;
+    width: 100% !important;
+    text-align: center !important;
+}
+
+.quiz-badge {
+    display: inline-block;
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: bold;
+    margin-left: 10px;
+}
+
+.badge-completed {
+    background: #4CAF50;
+    color: white;
+}
+
+.badge-score {
+    background: #2196F3;
+    color: white;
+}
+
+@media (max-width: 768px) {
+    .quiz-section { 
+        padding: 20px 15px !important;
+        margin: 20px 10px !important;
+    }
+    
+    .question { 
+        padding: 15px !important;
+    }
+    
+    .question label {
+        padding: 10px 12px !important;
+    }
+    
+    button[type="submit"], 
+    #quizContainer button { 
+        width: 100% !important;
+        max-width: 100% !important;
+        padding: 12px !important;
+    }
+}
+</style>
+</head>
+<body>
+
+<!-- Navbar -->
+<nav>
+  <div class="logo">CTH Academy</div>
+  <ul>
+    <li><a href="#categories">Courses</a></li>
+    <li><a href="#myCourses">My Courses</a></li>
+    <li><a href="#quizSection">Quiz</a></li>
+    <li><a href="leaderboard.html">🏆 Leaderboard</a></li>
+    <li><a href="profile.html">👤 Profile</a></li>
+    <li><a href="backend/auth/logout.php">Logout</a></li>
+  </ul>
+</nav>
+
+<!-- Dashboard Header -->
+<header class="dashboard-header">
+  <h1>Welcome to your learning space 👋</h1>
+  <p>Choose a category, study your courses, then test yourself with quizzes</p>
+</header>
+
+<!-- Course Categories -->
+<section class="courses" id="categories">
+  <h2>Course Categories</h2>
+  <div class="course-cards">
+    <div class="card category" onclick="showCourses('Web Development')">
+      <img src="images/web.jpg" alt="Web Dev">
+      <h3>Web Development</h3>
+      <p>HTML, CSS, JavaScript</p>
+      <span class="status">View courses</span>
+    </div>
+    <div class="card category" onclick="showCourses('Artificial Intelligence')">
+      <img src="images/abouti.png" alt="AI">
+      <h3>Artificial Intelligence</h3>
+      <p>Machine Learning, AI tools</p>
+      <span class="status">View courses</span>
+    </div>
+    <div class="card category" onclick="showCourses('Programming')">
+      <img src="images/prog.jpg" alt="Programming">
+      <h3>Programming</h3>
+      <p>Algorithms & logic</p>
+      <span class="status">View courses</span>
+    </div>
+  </div>
+</section>
+
+<!-- Course List -->
+<section class="courses" id="myCourses" style="display:none;">
+  <h2>Courses</h2>
+  <button class="btn-back" onclick="backToCategories()">⬅ Back to categories</button>
+  <div class="course-cards" id="studentCourses">
+    <!-- Courses loaded dynamically here -->
+  </div>
+</section> 
+
+<!-- Quiz Section -->
+<section class="quiz-section" id="quizSection">
+  <h2>Knowledge Quiz</h2>
+  <p>Test your understanding of the courses</p>
+  <div id="quizContainer"></div>
+</section>
+
+<!-- Discussions -->
+<div id="courseDiscussion"></div>
+
+<!-- Footer -->
+<footer>
+  © Creative Tech Helper — 2025<br>
+  CTH Academy – Online Learning Platform
+</footer>
+
+<script src="js/discussions.js"></script>
+<script>
+// Helper function to escape HTML
+function escapeHtml(text) {
+    const div = document.createElement('div');
+    div.textContent = text;
+    return div.innerHTML;
+}
+
+// Show courses with AI integration
+function showCourses(category){
+  document.getElementById("myCourses").style.display = "block";
+  document.getElementById("categories").style.display = "none";
+
+  fetch('backend/courses/get_student_courses.php', { credentials: 'same-origin' })
+  .then(res => res.json())
+  .then(data => {
+    const container = document.getElementById("studentCourses");
+    container.innerHTML = '';
+    const filtered = data.filter(course => course.category === category);
+
+    if(filtered.length === 0){
+      container.innerHTML = `<p>No courses available yet in ${category}.</p>`;
+      return;
+    }
+
+    filtered.forEach(course => {
+      container.innerHTML += `
+      <div class="card">
+        <h3>${course.title}</h3>
+        <p>Teacher: ${course.teacher_nom} ${course.teacher_prenom}</p>
+        <a href="${course.file_path}" target="_blank" class="view-btn">📄 View PDF</a>
+        <a href="${course.file_path}" download class="download-btn">⬇ Download PDF</a>
+        <button onclick="setCourseContext(${course.id})" class="btn" style="background: #667eea; color: white; margin-top: 10px; padding: 10px 20px; border: none; border-radius: 8px; cursor: pointer; font-weight: 600;">
+          🤖 Ask AI About This Course
+        </button>
+      </div>`;
+      
+      // Auto-extract PDF text in background
+      extractPDFText(course.id);
+    });
+  }).catch(err => console.error(err));
+}
+
+// Extract PDF text for AI context
+function extractPDFText(courseId) {
+  fetch(`backend/courses/extract_pdf_text.php?course_id=${courseId}`, { 
+    credentials: 'same-origin' 
+  })
+  .then(res => res.json())
+  .then(data => {
+    if (data.status === 'success') {
+      console.log(`✅ PDF text extracted for course ${courseId}: ${data.word_count} words`);
+    } else if (data.status === 'error') {
+      console.log('PDF extraction:', data.message);
+    }
+  })
+  .catch(err => console.log('PDF extraction error:', err));
+}
+
+// Set course context for AI chat
+function setCourseContext(courseId) {
+  if (window.aiChat) {
+    window.aiChat.setCourseContext(courseId);
+    window.aiChat.toggle();
+    alert('🤖 AI is now ready to help with this course! Ask questions about the PDF content.');
+  } else {
+    alert('⚠️ AI chat is loading... Please try again in a moment.');
+  }
+}
+
+// Back to categories
+function backToCategories(){
+  document.getElementById("myCourses").style.display = "none";
+  document.getElementById("categories").style.display = "block";
+}
+
+// Load quizzes with attempt status
+function loadQuizzes(){
+  fetch('backend/quiz/get_student_quizzes.php', { credentials: 'same-origin' })
+    .then(res => res.json())
+    .then(data => {
+      const container = document.getElementById("quizContainer");
+      container.innerHTML = '';
+      if(data.length === 0){ 
+        container.innerHTML = '<p style="text-align: center; color: #666;">No quizzes available yet.</p>'; 
+        return; 
+      }
+
+      data.forEach(quiz => {
+        fetch(`backend/quiz/check_attempt.php?quiz_id=${quiz.quiz_id}`, { credentials: 'same-origin' })
+          .then(res => res.json())
+          .then(attemptData => {
+            let cardHtml = `<div class="card">`;
+            
+            if(attemptData.attempted) {
+              const percentage = Math.round((attemptData.score / attemptData.total) * 100);
+              cardHtml += `
+                <h3>${quiz.quiz_title} 
+                  <span class="quiz-badge badge-completed">✓ Completed</span>
+                  <span class="quiz-badge badge-score">${attemptData.score}/${attemptData.total}</span>
+                </h3>
+                <p>Course: ${quiz.course_title}</p>
+                <p style="color: #4CAF50; font-weight: bold;">Your Score: ${percentage}%</p>
+                <button onclick="viewScore(${quiz.quiz_id}, ${attemptData.score}, ${attemptData.total})">📊 View Score</button>
+              `;
+              
+              if(percentage >= 75) {
+                cardHtml += `<button onclick="viewCertificate(${quiz.quiz_id})" style="background: #4CAF50 !important; margin-left: 10px;">🎓 View Certificate</button>`;
+              }
+            } else {
+              cardHtml += `
+                <h3>${quiz.quiz_title}</h3>
+                <p>Course: ${quiz.course_title}</p>
+                <button onclick="startQuiz(${quiz.quiz_id})">Start Quiz</button>
+              `;
+            }
+            
+            cardHtml += `</div>`;
+            container.innerHTML += cardHtml;
+          })
+          .catch(err => console.error(err));
+      });
+    })
+    .catch(err => console.error(err));
+}
+
+// View score details
+function viewScore(quizId, score, total){
+  const container = document.getElementById("quizContainer");
+  const percentage = Math.round((score / total) * 100);
+  
+  let html = `
+    <div style="text-align: center; padding: 40px; background: white; border-radius: 12px;">
+      <h3 style="color: #4b7bec; font-size: 28px; margin-bottom: 20px;">Your Quiz Results</h3>
+      <div style="font-size: 48px; margin: 20px 0;">`;
+  
+  if(percentage >= 90) {
+    html += `🏆`;
+  } else if(percentage >= 75) {
+    html += `⭐`;
+  } else {
+    html += `📊`;
+  }
+  
+  html += `</div>
+      <p style="font-size: 42px; font-weight: bold; color: #4b7bec; margin: 20px 0;">
+        ${score} / ${total}
+      </p>
+      <p style="font-size: 24px; color: #666; margin-bottom: 30px;">
+        ${percentage}% Score
+      </p>`;
+  
+  if(percentage >= 75) {
+    html += `<p style="color: #4CAF50; font-size: 18px; margin-bottom: 20px;">
+               ✅ You passed! Great job!
+             </p>
+             <button onclick="viewCertificate(${quizId})" style="background: #4CAF50 !important;">
+               🎓 View Certificate
+             </button>`;
+  } else {
+    html += `<p style="color: #ff6600; font-size: 18px; margin-bottom: 20px;">
+               You need ${Math.ceil(total * 0.75)} out of ${total} to get a certificate.
+             </p>`;
+  }
+  
+  html += `<button onclick="loadQuizzes()" style="margin-left: 10px;">← Back to Quizzes</button>
+    </div>`;
+  
+  container.innerHTML = html;
+}
+
+// View certificate in new tab
+function viewCertificate(quizId){
+  window.open(`backend/certificates/view_certificate.php?quiz_id=${quizId}`, '_blank');
+}
+
+// Start quiz
+function startQuiz(quizId){
+  const container = document.getElementById("quizContainer");
+  container.innerHTML = '<p style="text-align: center;">Loading quiz...</p>';
+
+  fetch(`backend/quiz/get_quiz_questions.php?quiz_id=${quizId}`, { credentials: 'same-origin' })
+    .then(res => res.json())
+    .then(questions => {
+      if(questions.length === 0){ 
+        container.innerHTML = '<p style="text-align: center;">No questions found for this quiz.</p>'; 
+        return; 
+      }
+
+      let html = '';
+      
+      html += `<div style="text-align: center; margin-bottom: 30px;">
+                 <h3 style="color: #4b7bec; font-size: 24px; margin-bottom: 10px;">Quiz Questions</h3>
+                 <p style="color: #666;">Total: ${questions.length} questions</p>
+                 <p style="color: #ff6600; font-size: 14px;">⚠️ You can only take this quiz once!</p>
+               </div>`;
+      
+      html += '<form id="quizForm">';
+
+      for(let i = 0; i < questions.length; i++){
+        const q = questions[i];
+        
+        const questionText = escapeHtml(q.question || '');
+        const opt1 = escapeHtml(q.option1 || '');
+        const opt2 = escapeHtml(q.option2 || '');
+        const opt3 = escapeHtml(q.option3 || '');
+        const opt4 = escapeHtml(q.option4 || '');
+        
+        html += `
+          <div class="question">
+            <p><strong>Question ${i+1}:</strong> ${questionText}</p>
+            <label>
+              <input type="radio" name="q${q.id}" value="1" required>
+              <span>${opt1}</span>
+            </label>
+            <label>
+              <input type="radio" name="q${q.id}" value="2">
+              <span>${opt2}</span>
+            </label>
+            <label>
+              <input type="radio" name="q${q.id}" value="3">
+              <span>${opt3}</span>
+            </label>
+            <label>
+              <input type="radio" name="q${q.id}" value="4">
+              <span>${opt4}</span>
+            </label>
+          </div>`;
+      }
+
+      html += '<button type="submit">Submit Quiz</button></form>';
+      
+      container.innerHTML = html;
+
+      setTimeout(() => {
+        document.getElementById('quizSection').scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }, 100);
+
+      document.getElementById("quizForm").addEventListener("submit", function(e){
+        e.preventDefault();
+        
+        let allAnswered = true;
+        for(let q of questions){
+          const selected = document.querySelector(`input[name='q${q.id}']:checked`);
+          if(!selected) allAnswered = false;
+        }
+        
+        if(!allAnswered){
+          alert('Please answer all questions before submitting!');
+          return;
+        }
+        
+        let score = 0;
+        for(let q of questions){
+          const selected = document.querySelector(`input[name='q${q.id}']:checked`);
+          const correctAnswer = q.correct_option;
+          if(selected && selected.value == correctAnswer){ 
+            score++; 
+          }
+        }
+
+        fetch('backend/quiz/submit_quiz.php', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ quiz_id: quizId, score: score })
+        })
+        .then(res => res.json())
+        .then(data => {
+          if(data.status === "success"){
+            const percentage = Math.round((score / questions.length) * 100);
+            let resultHtml = `
+              <div style="text-align: center; padding: 20px;">
+                <h3 style="color: #4b7bec; font-size: 28px; margin: 30px 0 15px 0;">
+                  Your Score: ${score} / ${questions.length}
+                </h3>
+                <p style="color: #666; font-size: 18px; margin-bottom: 20px;">
+                  ${percentage}% correct
+                </p>
+                <p style="color: #4CAF50; font-size: 16px; margin-bottom: 30px;">
+                  ✅ Quiz recorded successfully
+                </p>`;
+
+            if(percentage >= 75){
+              resultHtml += `<button onclick="viewCertificate(${quizId})" style="background: #4CAF50 !important;">🎓 View Certificate</button>`;
+            }
+
+            resultHtml += `<button onclick="loadQuizzes()">← Back to Quizzes</button></div>`;
+
+            container.innerHTML = resultHtml;
+            
+            setTimeout(() => {
+              document.getElementById('quizSection').scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }, 100);
+
+          } else { 
+            container.innerHTML = `<div style="text-align: center; padding: 20px;">
+                                     <p style="color: #f44336;">Error: ${data.message}</p>
+                                     <button onclick="loadQuizzes()">← Back to Quizzes</button>
+                                   </div>`; 
+          }
+        })
+        .catch(err => { 
+          console.error(err); 
+          container.innerHTML = `<div style="text-align: center; padding: 20px;">
+                                   <p style="color: #f44336;">Failed to save quiz. Try again.</p>
+                                   <button onclick="loadQuizzes()">← Back to Quizzes</button>
+                                 </div>`; 
+        });
+      });
+    })
+    .catch(err => { 
+      console.error(err); 
+      container.innerHTML = `<div style="text-align: center; padding: 20px;">
+                               <p style="color: #f44336;">Failed to load quiz. Try again.</p>
+                               <button onclick="loadQuizzes()">← Back to Quizzes</button>
+                             </div>`; 
+    });
+}
+
+// Load on page load
+loadQuizzes();
+</script>
+<script src="js/ai_chat_widget.js"></script>
+<script src="js/darkmode.js"></script>
+</body>
+</html>

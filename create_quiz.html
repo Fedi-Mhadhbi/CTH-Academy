@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>CTH Academy | Create Quiz</title>
+  <link rel="stylesheet" href="css/style_professional.css">
+  <link rel="stylesheet" href="css/darkmode.css">
+</head>
+<body>
+
+<nav>
+  <div class="logo">CTH Academy</div>
+  <ul>
+    <li><a href="enseignant.html">Dashboard</a></li>
+    <li><a href="#" onclick="logout()">Logout</a></li>
+  </ul>
+</nav>
+
+<section class="create-quiz">
+  <h2>Create New Quiz</h2>
+
+  <form id="quizForm">
+    <label for="course">Select Course:</label>
+    <select id="course" required>
+      <option value="">-- Choose Course --</option>
+      <option value="1">Web Development</option>
+      <option value="2">AI</option>
+      <option value="3">Programming</option>
+    </select>
+
+    <label for="quizTitle">Quiz Title:</label>
+    <input type="text" id="quizTitle" placeholder="Enter quiz title" required>
+
+    <div id="questionsContainer">
+      <!-- Questions will be added here -->
+    </div>
+
+    <button type="button" id="addQuestionBtn">+ Add Question</button>
+    <button type="submit">Create Quiz</button>
+  </form>
+
+  <p id="message"></p>
+</section>
+<script src="js/darkmode.js"></script>
+<script src="js/create_quiz.js"></script>
+</body>
+</html>
