@@ -20,7 +20,8 @@ if (!$message) {
     exit;
 }
 
-$api_key = 'AIzaSyAmIQjCg1nHpCww8InWC9O4TSiqjsSDltQ';
+$api_key = getenv('GEMINI_API_KEY');
+
 
 try {
     // ===== GET COMPLETE USER PROFILE =====
