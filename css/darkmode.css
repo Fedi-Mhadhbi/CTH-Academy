@@ -1,0 +1,257 @@
+/* ========================================
+   DARK MODE - CTH Academy
+   File: css/darkmode.css
+   ======================================== */
+
+/* ---- Light mode variables (default) ---- */
+:root {
+    --bg-primary: #f5f7fa;
+    --bg-secondary: #ffffff;
+    --bg-card: #ffffff;
+    --bg-input: #ffffff;
+    --text-primary: #2c3e50;
+    --text-secondary: #555e7a;
+    --text-muted: #7f8c8d;
+    --border-color: #e0e6ed;
+    --shadow: 0 2px 12px rgba(0,0,0,0.08);
+}
+
+/* ---- Dark mode variables ---- */
+[data-theme="dark"] {
+    --bg-primary: #0f1117;
+    --bg-secondary: #1a1d2e;
+    --bg-card: #1e2235;
+    --bg-input: #252840;
+    --text-primary: #e8eaf6;
+    --text-secondary: #9fa8c7;
+    --text-muted: #6b7599;
+    --border-color: #2e3358;
+    --shadow: 0 4px 20px rgba(0,0,0,0.4);
+}
+
+/* ---- Smooth transitions on EVERYTHING ---- */
+body, nav, header, footer, section,
+.card, .section, .quiz-section, .question,
+input, textarea, select, table, th, td,
+.ai-chat-panel, .ai-bubble, .dashboard-header,
+.profile-section, .achievement-card {
+    transition: background-color 0.35s ease,
+                color 0.35s ease,
+                border-color 0.35s ease,
+                box-shadow 0.35s ease !important;
+}
+
+/* ---- Body ---- */
+[data-theme="dark"] body {
+    background: var(--bg-primary) !important;
+    color: var(--text-primary) !important;
+}
+
+/* ---- Navbar ---- */
+[data-theme="dark"] nav {
+    background: linear-gradient(135deg, #1a1d2e 0%, #252840 100%) !important;
+    box-shadow: 0 2px 20px rgba(0,0,0,0.5) !important;
+}
+[data-theme="dark"] nav ul li a {
+    color: #c5cae9 !important;
+}
+[data-theme="dark"] nav ul li a:hover {
+    color: #ffffff !important;
+}
+
+/* ---- Dashboard Header ---- */
+[data-theme="dark"] .dashboard-header {
+    background: linear-gradient(135deg, #1a1d2e 0%, #252840 100%) !important;
+}
+[data-theme="dark"] .dashboard-header h1,
+[data-theme="dark"] .dashboard-header p {
+    color: #e8eaf6 !important;
+}
+
+/* ---- Cards ---- */
+[data-theme="dark"] .card {
+    background: var(--bg-card) !important;
+    border-color: var(--border-color) !important;
+    box-shadow: var(--shadow) !important;
+    color: var(--text-primary) !important;
+}
+[data-theme="dark"] .card:hover {
+    background: #252840 !important;
+    border-color: #667eea !important;
+}
+[data-theme="dark"] .card h3,
+[data-theme="dark"] .card h2,
+[data-theme="dark"] .card p,
+[data-theme="dark"] .card span {
+    color: var(--text-primary) !important;
+}
+
+/* ---- Sections & Headings ---- */
+[data-theme="dark"] .courses,
+[data-theme="dark"] .courses h2,
+[data-theme="dark"] section h2,
+[data-theme="dark"] section p {
+    color: var(--text-primary) !important;
+    background: transparent !important;
+}
+
+/* ---- Quiz Section ---- */
+[data-theme="dark"] .quiz-section {
+    background: var(--bg-secondary) !important;
+    color: var(--text-primary) !important;
+}
+[data-theme="dark"] .quiz-section h2,
+[data-theme="dark"] .quiz-section > p {
+    color: var(--text-primary) !important;
+}
+[data-theme="dark"] .question {
+    background: var(--bg-card) !important;
+    border-left-color: #667eea !important;
+}
+[data-theme="dark"] .question p,
+[data-theme="dark"] .question strong,
+[data-theme="dark"] .question label span {
+    color: var(--text-primary) !important;
+}
+[data-theme="dark"] .question label {
+    background: var(--bg-input) !important;
+    border-color: var(--border-color) !important;
+    color: var(--text-primary) !important;
+}
+[data-theme="dark"] .question label:hover {
+    background: #2e3358 !important;
+    border-color: #667eea !important;
+}
+
+/* ---- Inputs ---- */
+[data-theme="dark"] input,
+[data-theme="dark"] textarea,
+[data-theme="dark"] select {
+    background: var(--bg-input) !important;
+    border-color: var(--border-color) !important;
+    color: var(--text-primary) !important;
+}
+[data-theme="dark"] input:focus,
+[data-theme="dark"] textarea:focus,
+[data-theme="dark"] select:focus {
+    border-color: #667eea !important;
+    box-shadow: 0 0 0 3px rgba(102,126,234,0.25) !important;
+}
+[data-theme="dark"] input::placeholder,
+[data-theme="dark"] textarea::placeholder {
+    color: var(--text-muted) !important;
+}
+
+/* ---- Tables ---- */
+[data-theme="dark"] table {
+    background: var(--bg-card) !important;
+}
+[data-theme="dark"] th {
+    background: #252840 !important;
+    color: var(--text-primary) !important;
+    border-color: var(--border-color) !important;
+}
+[data-theme="dark"] td {
+    border-color: var(--border-color) !important;
+    color: var(--text-primary) !important;
+}
+[data-theme="dark"] tr:hover td {
+    background: #252840 !important;
+}
+
+/* ---- Profile ---- */
+[data-theme="dark"] .section,
+[data-theme="dark"] .achievement-card,
+[data-theme="dark"] .certificate-item,
+[data-theme="dark"] .stat-box {
+    background: var(--bg-card) !important;
+    border-color: var(--border-color) !important;
+    color: var(--text-primary) !important;
+}
+
+/* ---- AI Chat Widget ---- */
+[data-theme="dark"] .ai-chat-panel {
+    background: var(--bg-card) !important;
+    border-color: var(--border-color) !important;
+}
+[data-theme="dark"] .ai-chat-header {
+    background: linear-gradient(135deg, #252840, #1e2235) !important;
+}
+[data-theme="dark"] .ai-chat-messages {
+    background: var(--bg-secondary) !important;
+}
+[data-theme="dark"] .ai-message.assistant .ai-bubble {
+    background: var(--bg-card) !important;
+    border-color: var(--border-color) !important;
+    color: var(--text-primary) !important;
+}
+[data-theme="dark"] .ai-chat-input {
+    background: var(--bg-card) !important;
+    border-color: var(--border-color) !important;
+}
+[data-theme="dark"] #aiChatInput {
+    background: var(--bg-input) !important;
+    color: var(--text-primary) !important;
+}
+[data-theme="dark"] .ai-quick-btn {
+    background: var(--bg-input) !important;
+    border-color: var(--border-color) !important;
+    color: var(--text-secondary) !important;
+}
+[data-theme="dark"] .ai-quick-btn:hover {
+    background: #2e3358 !important;
+    color: #fff !important;
+}
+
+/* ---- Discussions ---- */
+[data-theme="dark"] .discussion-container,
+[data-theme="dark"] .discussion-box,
+[data-theme="dark"] .discussion-reply {
+    background: var(--bg-card) !important;
+    border-color: var(--border-color) !important;
+    color: var(--text-primary) !important;
+}
+
+/* ---- Footer ---- */
+[data-theme="dark"] footer {
+    background: #08090f !important;
+    color: var(--text-secondary) !important;
+    border-top: 1px solid var(--border-color) !important;
+}
+
+/* =========================================
+   TOGGLE BUTTON STYLE
+   ========================================= */
+.dark-mode-toggle {
+    background: rgba(255,255,255,0.1);
+    border: 2px solid rgba(255,255,255,0.3);
+    border-radius: 50px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    padding: 7px 16px;
+    transition: all 0.3s ease;
+    color: white;
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin-left: 5px;
+    white-space: nowrap;
+}
+
+.dark-mode-toggle:hover {
+    background: rgba(255,255,255,0.2);
+    border-color: rgba(255,255,255,0.6);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+}
+
+.dark-mode-toggle .toggle-icon {
+    font-size: 1rem;
+    display: inline-block;
+    transition: transform 0.5s ease;
+}
+
+.dark-mode-toggle:hover .toggle-icon {
+    transform: rotate(25deg);
+}
